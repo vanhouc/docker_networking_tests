@@ -1,0 +1,33 @@
+services:
+  server3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server3
+    environment:
+      - SERVER_NAME=Server 3 (External)
+      - TARGET_SERVER=server1:8080
+    ports:
+      - "8083:8080"  # Map to different host port to avoid conflicts
+    networks:
+      - dns-test-bridge
+    restart: unless-stopped
+
+  server4:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: server4
+    environment:
+      - SERVER_NAME=Server 4 (External)
+      - TARGET_SERVER=server2:8080
+    ports:
+      - "8084:8080"  # Map to different host port to avoid conflicts
+    networks:
+      - dns-test-bridge
+    restart: unless-stopped
+
+networks:
+  dns-test-bridge:
+    external: true
+    name: dns-test-bridge

@@ -2,8 +2,11 @@ services:
   server1:
     build:
       context: .
-      dockerfile: server1/Dockerfile
+      dockerfile: Dockerfile
     container_name: server1
+    environment:
+      - SERVER_NAME=Server 1
+      - TARGET_SERVER=server2:8080
     ports:
       - "8081:8080"  # Map to different host ports to avoid conflicts
     networks:
@@ -13,8 +16,11 @@ services:
   server2:
     build:
       context: .
-      dockerfile: server2/Dockerfile
+      dockerfile: Dockerfile
     container_name: server2
+    environment:
+      - SERVER_NAME=Server 2
+      - TARGET_SERVER=server1:8080
     ports:
       - "8082:8080"  # Map to different host ports to avoid conflicts
     networks:
