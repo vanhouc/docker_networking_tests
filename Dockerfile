@@ -25,6 +25,7 @@ FROM debian:bookworm-slim
 # Install necessary runtime dependencies
 RUN apt-get update && apt-get install -y \
     ca-certificates \
+    iputils-ping \
     && rm -rf /var/lib/apt/lists/*
 
 # Create a non-privileged user that the app will run under.
